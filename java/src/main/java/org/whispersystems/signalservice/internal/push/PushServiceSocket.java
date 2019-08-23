@@ -1024,19 +1024,17 @@ public class PushServiceSocket {
   }
 
   private OkHttpClient createConnectionClient(SignalUrl url) {
-    try {
-      TrustManager[] trustManagers = BlacklistingTrustManager.createFor(url.getTrustStore());
+   
+//       TrustManager[] trustManagers = BlacklistingTrustManager.createFor(url.getTrustStore());
 
-      SSLContext context = SSLContext.getInstance("TLS");
-      context.init(null, trustManagers, null);
+//       SSLContext context = SSLContext.getInstance("TLS");
+//       context.init(null, trustManagers, null);
 
       return new OkHttpClient.Builder()
-                             .sslSocketFactory(new Tls12SocketFactory(context.getSocketFactory()), (X509TrustManager)trustManagers[0])
+                           
                              .connectionSpecs(url.getConnectionSpecs().or(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
                              .build();
-    } catch (NoSuchAlgorithmException | KeyManagementException e) {
-      throw new AssertionError(e);
-    }
+  
   }
 
   private OkHttpClient createAttachmentClient() {
